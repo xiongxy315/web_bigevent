@@ -6,4 +6,24 @@ $.ajaxPrefilter(function (options) {
     options.url = 'http://api-breakingnews-web.itheima.net' + options.url
 
     //注意这个文件的引入要在jq之后我们的js之前
+
+    //2.统一为有权限的接口设置headers请求头
+    //判断url里是否携带了/my/，有的都是需要设置请求头的（接口有写
+    if (options.url.indexOf('/my/') != -1) {
+        options.headers = {
+            Authorization: localStorage.getItem('token') || ''
+        }
+    }
+
+    //3.禁止用户非法进入
+    options.complete = function (res) { //不管成功失败都会执行
+        // console.log(res);
+        if (res.responseJSON.status == 1 || res.responseJSON.message == '身份认证失败！') {
+            localStorage.removeItem('token'); //强制清空token
+
+            location.href = '/login.html'; //强制跳转到登录页面
+        }
+
+    }
+
 })
