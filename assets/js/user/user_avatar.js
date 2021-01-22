@@ -19,6 +19,10 @@ $(function () {
     //给确定按钮添加点击事件
     $('#btnUpload').on('click', yesbtn);
 
+    //把图片地址更改为现在的头像
+    let imgurl = localStorage.getItem('imgurl');
+    $image.cropper('destroy').attr('src', imgurl).cropper(options)
+
 });
 
 //2.点击弹出文件选择框
@@ -41,6 +45,8 @@ function changeImg(e) {
 
     // //重新初始化裁剪区域:销毁旧的裁剪区域---重新设置图片路径---重新初始化裁剪区域
     $image.cropper('destroy').attr('src', imgURL).cropper(options);
+    return imgURL;
+
 }
 
 //4.点击确认按钮后将裁剪后的头像上传到服务器
@@ -66,6 +72,10 @@ function yesbtn() {
             }
             layer.msg('更换头像成功！')
             window.parent.getUserInfo(); //渲染，获取用户的基本信息
+
+
+
+
         }
     })
 }

@@ -12,6 +12,8 @@ function getUserInfo() {
         // },
         success: function (res) {
             // console.log(res);
+            //存图片地址
+            localStorage.setItem('imgurl', res.data.user_pic);
             if (res.status != 0) {
                 return layui.layer.msg(res.message);
             };
