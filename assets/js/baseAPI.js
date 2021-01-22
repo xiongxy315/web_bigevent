@@ -15,15 +15,14 @@ $.ajaxPrefilter(function (options) {
         }
     }
 
-    //3.禁止用户非法进入
-    options.complete = function (res) { //不管成功失败都会执行
-        // console.log(res);
-        if (res.responseJSON.status == 1 || res.responseJSON.message == '身份认证失败！') {
-            localStorage.removeItem('token'); //强制清空token
+    //3.禁止用户非法进入(只在index请求页面的时候符合)
+    // options.complete = function (res) { //不管成功失败都会执行
+    //     // console.log(res);
+    //     if (res.responseJSON.status == 1 || res.responseJSON.message == '身份认证失败！') {
+    //         localStorage.removeItem('token'); //强制清空token
+    //         location.href = '/login.html'; //强制跳转到登录页面
+    //     }
 
-            location.href = '/login.html'; //强制跳转到登录页面
-        }
-
-    }
+    // }
 
 })

@@ -18,7 +18,13 @@ function getUserInfo() {
             //调用renderAvatar渲染用户头像
             renderAvatar(res.data);
         },
-  
+        complete: function (res) { //用户非法进入
+            if (res.responseJSON.status == 1 || res.responseJSON.message == '身份认证失败！') {
+                localStorage.removeItem('token'); //强制清空token
+                location.href = '/login.html'; //强制跳转到登录页面
+            }
+        }
+
     })
 }
 //2.渲染用户头像和名称
